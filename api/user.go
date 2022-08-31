@@ -34,3 +34,10 @@ func HandleUserRegister(ctx *gin.Context) {
 	err, resp := controller.CtrlUserRegister(name, email, password)
 	utils.Resp(ctx, err, resp)
 }
+
+func HandleUserLogin(ctx *gin.Context) {
+	email := ctx.PostForm("email")
+	password := ctx.PostForm("password")
+	err, resp := controller.CtrlUserLogin(email, password)
+	utils.Resp(ctx, err, resp)
+}

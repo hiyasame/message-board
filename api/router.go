@@ -23,6 +23,12 @@ var Routes = []Route{
 		Pattern:          "/user/register",
 		HandlerFunctions: HandlerFunctions{HandleUserRegister},
 	},
+	{
+		Name:             "登录",
+		Method:           http.MethodPost,
+		Pattern:          "/user/login",
+		HandlerFunctions: HandlerFunctions{HandleUserLogin},
+	},
 }
 
 func InitRouter() {
