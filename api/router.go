@@ -29,6 +29,18 @@ var Routes = []Route{
 		Pattern:          "/user/login",
 		HandlerFunctions: HandlerFunctions{HandleUserLogin},
 	},
+	{
+		Name:             "发送验证码",
+		Method:           http.MethodPost,
+		Pattern:          "/user/verify",
+		HandlerFunctions: HandlerFunctions{HandleSendVerifyCode},
+	},
+	{
+		Name:             "修改密码",
+		Method:           http.MethodPost,
+		Pattern:          "/user/changepass",
+		HandlerFunctions: HandlerFunctions{HandleChangePassword},
+	},
 }
 
 func InitRouter() {

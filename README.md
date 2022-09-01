@@ -41,7 +41,27 @@
 
 #### POST `/user/changepass` 修改密码 & 忘记密码
 
++ 请勿频繁请求
+
+##### 请求参数
+
+| 名称            | 位置     | 类型     | 必选    | 说明 |
+|---------------|--------|--------|-------|--|
+| body          | body   | object | false | none |
+| » email       | body   | string | false | 邮箱 |
+| » password       | body   | string | false | 密码 |
+| » verify       | body   | string | false | 验证码 |
+
 #### POST `/user/verify` 发送验证码
+
++ 请勿频繁请求
+
+##### 请求参数
+
+| 名称            | 位置     | 类型     | 必选    | 说明 |
+|---------------|--------|--------|-------|--|
+| body          | body   | object | false | none |
+| » email       | body   | string | false | 邮箱 |
 
 #### POST `/user/detail` 更改用户信息
 

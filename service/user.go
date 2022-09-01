@@ -48,3 +48,16 @@ func LoginAccount(email, password string) (err error, accessToken, refreshToken 
 	}
 	return
 }
+
+func ChangePass(email, password string) (err error) {
+	err = dao.UpdateUserPassword(email, password)
+	return
+}
+
+func SendVerifyCode(email string) {
+	utils.SendRandomVerifyCode(email)
+}
+
+func ChangeUserDetail(user model.User) {
+
+}

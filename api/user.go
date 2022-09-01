@@ -41,3 +41,32 @@ func HandleUserLogin(ctx *gin.Context) {
 	err, resp := controller.CtrlUserLogin(email, password)
 	utils.Resp(ctx, err, resp)
 }
+
+func HandleSendVerifyCode(ctx *gin.Context) {
+	email := ctx.PostForm("email")
+	if utils.MatchEmailFormat(email) {
+		utils.RespWithParamError(ctx, "邮箱地址不正确")
+		return
+	}
+	err, resp := controller.CtrlSendVerifyCode(email)
+	utils.Resp(ctx, err, resp)
+}
+
+func HandleChangePassword(ctx *gin.Context) {
+	email := ctx.PostForm("email")
+	password := ctx.PostForm("password")
+	verify := ctx.PostForm("verify")
+	if utils.MatchEmailFormat(email) {
+		utils.RespWithParamError(ctx, "邮箱地址不正确")
+		return
+	}
+	if utils.CheckPasswordStrength(password) {
+		utils.RespWithParamError(ctx, "密码格式不正确")
+		return
+	}
+	err, resp := controller.CtrlChangePassword(email, password, verify)
+	if err != nil {
+		return
+	}
+	utils.Resp(ctx, err, resp)
+}

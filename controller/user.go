@@ -59,3 +59,29 @@ func CtrlUserLogin(email, password string) (err error, resp utils.RespData) {
 	}
 	return
 }
+
+func CtrlSendVerifyCode(email string) (err error, resp utils.RespData) {
+	service.SendVerifyCode(email)
+	resp = utils.RespData{
+		HttpStatus: http.StatusOK,
+		Status:     20000,
+		Info:       utils.InfoSuccess,
+	}
+	return
+}
+
+func CtrlChangePassword(email, password, verify string) (err error, resp utils.RespData) {
+	if err := utils.VerifyInputCode(email, verify); err != nil {
+		return err, utils.RespData{}
+	}
+	err = service.ChangePass(email, verify)
+	if err != nil {
+		return err, utils.RespData{}
+	}
+	resp = utils.RespData{
+		HttpStatus: http.StatusOK,
+		Status:     20000,
+		Info:       utils.InfoSuccess,
+	}
+	return
+}
