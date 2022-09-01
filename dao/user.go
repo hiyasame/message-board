@@ -23,6 +23,12 @@ func SelectUserByName(user *User, name string) (err error) {
 	return
 }
 
+func SelectUserById(user *User, id uint) (err error) {
+	result := dB.First("id = ?", id)
+	err = result.Error
+	return
+}
+
 func UpdateUserPassword(email, password string) (err error) {
 	salt := utils.GenerateUUIDStr()
 	encrypted, err := bcrypt.GenerateFromPassword([]byte(password+salt), bcrypt.DefaultCost)
@@ -36,8 +42,7 @@ func UpdateUserPassword(email, password string) (err error) {
 func UpdateUser(user *model.User) (err error) {
 	err = dB.Model(&User{
 		User: model.User{
-			Name:  user.Name,
-			Email: user.Email,
+			ID: user.ID,
 		},
 	}).Updates(&User{
 		User: *user,

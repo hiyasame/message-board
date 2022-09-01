@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"message-board/dao"
+	"message-board/model"
 	"message-board/service"
 	"message-board/utils"
 	"net/http"
@@ -74,7 +76,7 @@ func CtrlChangePassword(email, password, verify string) (err error, resp utils.R
 	if err := utils.VerifyInputCode(email, verify); err != nil {
 		return err, utils.RespData{}
 	}
-	err = service.ChangePass(email, verify)
+	err = service.ChangePass(email, password)
 	if err != nil {
 		return err, utils.RespData{}
 	}
@@ -82,6 +84,45 @@ func CtrlChangePassword(email, password, verify string) (err error, resp utils.R
 		HttpStatus: http.StatusOK,
 		Status:     20000,
 		Info:       utils.InfoSuccess,
+	}
+	return
+}
+
+func CtrlChangeDetail(user *model.User) (err error, resp utils.RespData) {
+	if err = service.ChangeUserDetail(user); err != nil {
+		return err, utils.RespData{}
+	}
+	resp = utils.RespData{
+		HttpStatus: http.StatusOK,
+		Status:     20000,
+		Info:       utils.InfoSuccess,
+	}
+	return
+}
+
+func CtrlGetDetail(uid *uint, name, email *string) (err error, resp utils.RespData) {
+	user := dao.User{}
+	if uid != nil {
+		err = service.GetUserDetailById(&user, *uid)
+		if err != nil {
+			return err, utils.RespData{}
+		}
+	} else if name != nil {
+		err = service.GetUserDetailByName(&user, *name)
+		if err != nil {
+			return err, utils.RespData{}
+		}
+	} else {
+		err = service.GetUserDetailByEmail(&user, *email)
+		if err != nil {
+			return err, utils.RespData{}
+		}
+	}
+	resp = utils.RespData{
+		HttpStatus: http.StatusOK,
+		Status:     20000,
+		Info:       utils.InfoSuccess,
+		Data:       user.User,
 	}
 	return
 }

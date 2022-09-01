@@ -58,6 +58,22 @@ func SendVerifyCode(email string) {
 	utils.SendRandomVerifyCode(email)
 }
 
-func ChangeUserDetail(user model.User) {
+func ChangeUserDetail(user *model.User) (err error) {
+	err = dao.UpdateUser(user)
+	return
+}
 
+func GetUserDetailById(user *dao.User, uid uint) (err error) {
+	err = dao.SelectUserById(user, uid)
+	return
+}
+
+func GetUserDetailByName(user *dao.User, name string) (err error) {
+	err = dao.SelectUserByName(user, name)
+	return
+}
+
+func GetUserDetailByEmail(user *dao.User, email string) (err error) {
+	err = dao.SelectUserByEmail(user, email)
+	return
 }

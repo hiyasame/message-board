@@ -41,6 +41,18 @@ var Routes = []Route{
 		Pattern:          "/user/changepass",
 		HandlerFunctions: HandlerFunctions{HandleChangePassword},
 	},
+	{
+		Name:             "修改用户信息",
+		Method:           http.MethodPost,
+		Pattern:          "/user/detail",
+		HandlerFunctions: HandlerFunctions{middleware.Auth(), HandleChangeUserDetail},
+	},
+	{
+		Name:             "获取用户信息",
+		Method:           http.MethodGet,
+		Pattern:          "/user/detail",
+		HandlerFunctions: HandlerFunctions{HandleGetUserDetail},
+	},
 }
 
 func InitRouter() {

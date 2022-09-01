@@ -41,7 +41,7 @@
 
 #### POST `/user/changepass` 修改密码 & 忘记密码
 
-+ 请勿频繁请求
++ 更改密码
 
 ##### 请求参数
 
@@ -65,7 +65,29 @@
 
 #### POST `/user/detail` 更改用户信息
 
++ 更改用户信息
++ 需要鉴权
+
+##### 请求参数
+
+| 名称            | 位置     | 类型     | 必选    | 说明 |
+|---------------|--------|--------|-------|--|
+| body          | body   | object | false | none |
+| » avatar       | body   | string | false | 头像 |
+| » bio       | body   | string | false | 描述 |
+
 #### GET `/user/detail` 获取用户信息
+
++ 获取用户信息
++ email name uid任选其一即可
+
+##### 请求参数
+
+| 名称            | 位置     | 类型     | 必选    | 说明 |
+|---------------|--------|--------|-------|--|
+| name       | query   | string | false | 名称 |
+| email      | query   | string | false | 邮箱 |
+| uid      | query   | number | false | id |
 
 ### 留言版功能 `/message`
 
