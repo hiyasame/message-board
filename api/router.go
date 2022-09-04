@@ -53,6 +53,30 @@ var Routes = []Route{
 		Pattern:          "/user/detail",
 		HandlerFunctions: HandlerFunctions{HandleGetUserDetail},
 	},
+	{
+		Name:             "留言",
+		Method:           http.MethodPut,
+		Pattern:          "/message",
+		HandlerFunctions: HandlerFunctions{middleware.Auth(), HandlePutMessage},
+	},
+	{
+		Name:             "获取留言详情",
+		Method:           http.MethodGet,
+		Pattern:          "/message",
+		HandlerFunctions: HandlerFunctions{HandleGetMessage},
+	},
+	{
+		Name:             "回复指定条留言的回复",
+		Method:           http.MethodPut,
+		Pattern:          "/message/:id",
+		HandlerFunctions: HandlerFunctions{middleware.Auth(), HandlePutChildMessage},
+	},
+	{
+		Name:             "获取指定条留言的回复",
+		Method:           http.MethodGet,
+		Pattern:          "/message/:id",
+		HandlerFunctions: HandlerFunctions{HandleGetChildrenMessage},
+	},
 }
 
 func InitRouter() {
